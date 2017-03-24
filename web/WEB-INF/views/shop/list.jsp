@@ -6,14 +6,22 @@
 <spring:message code="label_edit" var="labelEdit"/>
 <spring:message code="label_delete" var="labelDelete"/>
 <spring:message code="label_add" var="labelAdd"/>
-<spring:message code="label_title_page_shop" var="labelTitlePageShop"/>
+<spring:message code="label_title_page_shopList" var="labelTitlePageShopList"/>
 <head>
-    <title>${labelTitlePageShop}</title>
+    <title>${labelTitlePageShopList}</title>
+     <spring:theme code="styleSheet" var="app_css"/>
+     <spring:url value="/${app_css}" var="app_css_url"/>
+     <link rel="stylesheet" type="text/css" media="screen" href="${app_css_url}"/>
 </head>
 <body>
 
 <table>
-    <tr><th>id</th><th>${labelName}</th><th>employer_id</th></tr>
+    <tr>
+        <th>ID</th>
+        <th>${labelName}</th>
+        <th>employer_id</th>
+        <th colspan="2"></th>
+    </tr>
     <tbody>
 
 <c:forEach items="${shopList}" var="shop">
@@ -26,7 +34,7 @@
     </tr>
 </c:forEach>
     </tbody>
-    <tr><td><a href="/shop/add">${labelAdd}</a></td></tr>
+    <tr><td colspan="2"><a href="/shop/add">${labelAdd}</a></td></tr>
 </table>
 
 </body>
