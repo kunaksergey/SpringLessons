@@ -1,6 +1,7 @@
 package ua.shield.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.shield.Exception.ShopNotFoundException;
@@ -11,18 +12,19 @@ import java.util.List;
 /**
  * Created by sa on 23.03.17.
  */
-@Service
+@Repository
+@Transactional
+@Service("shopService")
 public class ShopService implements IShopService {
     private ShopRepository shopRepository;
     @Override
-    @Transactional
+
     public void shopCreated(Shop shop) {
         shopRepository.save(shop);
     }
 
     @Override
-    @Transactional
-    public void deleteShop(Integer id) throws ShopNotFoundException {
+     public void deleteShop(Integer id) throws ShopNotFoundException {
         if(!shopRepository.exists(id)) throw  new ShopNotFoundException();
          shopRepository.delete(id);
     }
@@ -34,7 +36,6 @@ public class ShopService implements IShopService {
     }
 
     @Override
-    @Transactional
     public void shopUpdate(Shop shop) throws ShopNotFoundException {
         shopRepository.save(shop);
 

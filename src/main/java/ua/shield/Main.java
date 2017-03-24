@@ -1,6 +1,8 @@
 package ua.shield;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ua.shield.service.IShopService;
 import ua.shield.service.ShopService;
 
 /**
@@ -8,8 +10,8 @@ import ua.shield.service.ShopService;
  */
 public class Main {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context =new ClassPathXmlApplicationContext("application-context.xml");
-        ShopService shopService = context.getBean("shopService", ShopService.class);
+        ApplicationContext context =new ClassPathXmlApplicationContext("application-context.xml");
+        IShopService shopService = context.getBean("shopService", IShopService.class);
         shopService.findAll().forEach(System.out::println);
     }
 }
