@@ -1,8 +1,9 @@
 package ua.shield.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySources;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -23,21 +25,20 @@ import java.util.Properties;
  * Created by sa on 24.03.17.
  */
 @Configuration
-@EnableWebMvc
+@PropertySource("classpath:properties/hibernate.properties")
+//@EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan
-//@PropertySources("")
+@ComponentScan("ua.shield")
 @EnableJpaRepositories("ua.shield.service")
 public class WebAppConfig {
-    private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
     private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
 
-    //@Resource
+    @Resource
     Environment env;
 
-    //@Bean
+    @Bean
      public DataSource dataSource(){
          EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
          EmbeddedDatabase db = builder
@@ -48,7 +49,7 @@ public class WebAppConfig {
          return db;
      }
 
-    //@Bean
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
@@ -65,14 +66,14 @@ public class WebAppConfig {
         return properties;
     }
 
-   // @Bean
+    @Bean
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
 
-    //@Bean
+    @Bean
     public UrlBasedViewResolver setupViewResolver() {
         UrlBasedViewResolver resolver = new UrlBasedViewResolver();
         resolver.setPrefix("/WEB-INF/views/");
