@@ -26,7 +26,7 @@ import java.util.Properties;
  */
 @Configuration
 @PropertySource("classpath:properties/hibernate.properties")
-@EnableWebMvc
+//@EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("ua.shield")
 @EnableJpaRepositories("ua.shield.service")
