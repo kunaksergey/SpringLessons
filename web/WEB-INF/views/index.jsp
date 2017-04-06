@@ -12,9 +12,10 @@
 
     <title>Spring Security</title>
     <spring:theme code="styleSheetBootstrap" var="bootstrap_css"/>
+    <spring:theme code="styleSheetJumbotron" var="jumbotron_css"/>
     <spring:url value="/${bootstrap_css}" var="bootstrap_css_url"/>
     <link rel="stylesheet" type="text/css" media="screen" href="${bootstrap_css_url}"/>
-    <%--<link rel="stylesheet" href="<c:url value="styles/jumbotron-narrow.css"/>" />--%>
+    <link rel="stylesheet" type="text/css" media="screen" href="${jumbotron_css}"/>
 </head>
 <body>
 <div class="container">
@@ -30,7 +31,7 @@
     </sec:authorize>
 </div>
 <div class="footer">
-    <p>@Mega project</p>
+    <p>@Sa</p>
 </div>
 </div>
 </body>

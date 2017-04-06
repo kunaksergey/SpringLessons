@@ -83,8 +83,8 @@ public class WebAppConfig {
         return resolver;
     }
 
-    @Bean
-    public UserDetailsService getUserDetailsService(){
-        return new UserDetailsServiceImpl();
-    }
+//    @Bean
+//    public UserDetailsService getUserDetailsService(){
+//        return new UserDetailsServiceImpl();
+//    }
 }
