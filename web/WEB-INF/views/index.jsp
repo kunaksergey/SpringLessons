@@ -27,6 +27,12 @@
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
         <p>Ваш логин:<sec:authentication property="principal.username"/></p>
+        <sec:authentication property="principal.authorities" var="roles"/>
+        Ваши привилегии:
+        <c:forEach var="role" items="${roles}">
+            ${role}
+        </c:forEach>
+
         <p><a class="btn btn-lg btn-danger" href="<c:url value="/login/loginOut"/>" role="button">Выйти</a></p>
     </sec:authorize>
 </div>

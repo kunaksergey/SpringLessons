@@ -1,5 +1,6 @@
 package ua.shield.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.shield.Exception.ShopNotFoundException;
 import ua.shield.entity.Shop;
+import ua.shield.enums.UserRoleEnum;
 import ua.shield.service.IShopService;
 import ua.shield.service.ShopService;
 
@@ -29,6 +31,7 @@ public class ShopController {
         return REDIRECT_URL;
     }
 
+    @Secured("ADMIN")
     @RequestMapping(value = "/edit",method = RequestMethod.GET )
     public String list(@RequestParam("id")Integer id,Model model){
         try {
