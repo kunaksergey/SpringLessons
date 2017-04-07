@@ -6,7 +6,7 @@ CREATE TABLE shops (
   employees_number int(6) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
+DROP TABLE IF EXISTS role;
 CREATE TABLE role (
   id int(6) NOT NULL AUTO_INCREMENT,
   name varchar(60) NOT NULL,

@@ -1,6 +1,7 @@
 package ua.shield.controller;
 
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import ua.shield.service.IShopService;
 import ua.shield.service.ShopService;
 
 import javax.annotation.Resource;
+import javax.jws.soap.SOAPBinding;
 
 /**
  * Created by sa on 23.03.17.
@@ -31,9 +33,10 @@ public class ShopController {
         return REDIRECT_URL;
     }
 
-    @Secured("ADMIN")
+
     @RequestMapping(value = "/edit",method = RequestMethod.GET )
-    public String list(@RequestParam("id")Integer id,Model model){
+
+    public String edit(@RequestParam("id")Integer id,Model model){
         try {
             Shop shop=shopService.findById(id);
             model.addAttribute("shopOne",shop);
@@ -44,6 +47,9 @@ public class ShopController {
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.GET )
+    //@Secured({"ADMIN","USER"})
+    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated ()")
     public String add(Model model){
          Shop shop=new Shop();
          model.addAttribute("shopOne",shop);

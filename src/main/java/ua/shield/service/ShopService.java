@@ -1,6 +1,7 @@
 package ua.shield.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +37,7 @@ public class ShopService implements IShopService {
     }
 
     @Override
-    public void shopUpdate(Shop shop) throws ShopNotFoundException {
+     public void shopUpdate(Shop shop) throws ShopNotFoundException {
         shopRepository.save(shop);
 
     }

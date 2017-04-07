@@ -30,7 +30,7 @@
         <sec:authentication property="principal.authorities" var="roles"/>
         Ваши привилегии:
         <c:forEach var="role" items="${roles}">
-            ${role}
+            ${role}:
         </c:forEach>
 
         <p><a class="btn btn-lg btn-danger" href="<c:url value="/login/loginOut"/>" role="button">Выйти</a></p>
