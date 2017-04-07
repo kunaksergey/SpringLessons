@@ -4,13 +4,15 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
+<!--<import resource="security.xml"/>-->
 <mvc:annotation-driven/>
 <mvc:resources mapping="/resources/**" location="/"/>
 <context:component-scan base-package="ua.shield"/>
@@ -38,5 +40,10 @@
 
     <bean class="org.springframework.web.servlet.theme.CookieThemeResolver"
                 id="themeResolver" p:cookieName="theme" p:defaultThemeName="standart"/>
+
+    <!--<security:user-service id="userService">
+
+        <user name=sa password="1234" authorities="ADMIN"/>
+    </security:user-service>-->
 </beans>
 
