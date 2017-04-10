@@ -47,9 +47,9 @@ public class ShopController {
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.GET )
-    //@Secured({"ADMIN","USER"})
+    @Secured({"ROLE_ADMIN","ROLE_USER"})
     //@PreAuthorize("hasRole('ADMIN')")
-    @PreAuthorize("isAuthenticated ()")
+    //@PreAuthorize("isAuthenticated ()")
     public String add(Model model){
          Shop shop=new Shop();
          model.addAttribute("shopOne",shop);
