@@ -5,6 +5,8 @@ import org.springframework.aop.Advisor;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.shield.aop.*;
 
 /**
@@ -38,6 +40,10 @@ public class Main {
         System.out.println("With AOP -AROUND:");
         customerBoProxyWithAround.addCustomerAround("Sa");
         System.out.println("----------------------");
+        System.out.println("--------TEST ANNOTATION---------");
+        ApplicationContext context=new ClassPathXmlApplicationContext("application-context.xml");
+        CustomerBo customerBo = context.getBean("customerBo", CustomerBo.class);
+        customerBo.addCustomer();
 
     }
 }
