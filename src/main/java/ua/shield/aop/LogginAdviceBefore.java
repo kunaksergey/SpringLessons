@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
  * Created by sa on 10.04.17.
  */
 public class LogginAdviceBefore implements MethodBeforeAdvice{
+
     @Override
     public void before(Method method, Object[] objects, Object o) throws Throwable {
         System.out.println("logBefore() is running!");

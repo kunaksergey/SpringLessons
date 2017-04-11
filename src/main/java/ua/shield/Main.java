@@ -5,6 +5,7 @@ import org.springframework.aop.Advisor;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.shield.aop.*;
@@ -14,36 +15,46 @@ import ua.shield.aop.*;
  */
 public class Main {
     public static void main(String[] args) throws NoSuchMethodException {
-        CustomerBo target=new CustomerBoImpl();
 
+//Target
+        CustomerBo target=new CustomerBoImpl();
         ProxyFactory proxyFactory=new ProxyFactory();
         proxyFactory.setTarget(target);
+
+//Advice Before for all Method
         LogginAdviceBefore loginAdviceBefore=new LogginAdviceBefore();
         proxyFactory.addAdvice(loginAdviceBefore);
-        CustomerBo customerBoProxy=(CustomerBo)proxyFactory.getProxy();
+        CustomerBo customerBo=(CustomerBo)proxyFactory.getProxy();
+        customerBo.addCustomer();
+        System.out.println();
 
-        ProxyFactory proxyFactoryWithAround=new ProxyFactory();
-        proxyFactoryWithAround.setTarget(target);
+//Advice Around for addCustomerAround
         Pointcut pc=new MyStaticPointcut(CustomerBoImpl.class,CustomerBoImpl.class.getMethod("addCustomerAround",String.class));
         Advice advice=new LogginAdviceInterceptor();
         Advisor advisor=new DefaultPointcutAdvisor(pc,advice);
-        proxyFactoryWithAround.addAdvisor(advisor);
-        CustomerBo customerBoProxyWithAround=(CustomerBo)proxyFactoryWithAround.getProxy();
-
-        System.out.println("----------------------");
-        System.out.println("Without AOP:");
-        target.addCustomer();
+        proxyFactory.removeAdvice(loginAdviceBefore);
+        proxyFactory.addAdvisor(advisor);
+        customerBo=(CustomerBo)proxyFactory.getProxy();
+        customerBo.addCustomerAround("Sa");
         System.out.println();
-        System.out.println("With AOP -BEFORE:");
-        customerBoProxy.addCustomer();
-        System.out.println();
-        System.out.println("With AOP -AROUND:");
-        customerBoProxyWithAround.addCustomerAround("Sa");
-        System.out.println("----------------------");
-        System.out.println("--------TEST ANNOTATION---------");
+//Using @Aspect
         ApplicationContext context=new ClassPathXmlApplicationContext("application-context.xml");
-        CustomerBo customerBo = context.getBean("customerBo", CustomerBo.class);
+        customerBo = context.getBean("customerBo", CustomerBo.class);
         customerBo.addCustomer();
+        System.out.println();
+
+
+// Using Annotation Advice
+        AnnotationMatchingPointcut pointcut=AnnotationMatchingPointcut.forMethodAnnotation(MyAopAnnotation.class);
+        LogginAdviceAfter logginAdviceAfter=new LogginAdviceAfter();
+        Advisor advisorAnnotation=new DefaultPointcutAdvisor(pointcut,logginAdviceAfter);
+
+        proxyFactory.removeAdvice(loginAdviceBefore);
+        proxyFactory.setTarget(target);
+        proxyFactory.addAdvisor(advisorAnnotation);
+
+        customerBo=(CustomerBo) proxyFactory.getProxy();
+        customerBo.testAnnotationAdvice();
 
     }
 }

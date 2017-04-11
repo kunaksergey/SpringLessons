@@ -10,9 +10,9 @@ public class LogginAdviceInterceptor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
-        System.out.println("around method Before");
+        System.out.println("around method --before--");
         Object object=methodInvocation.proceed();
-        System.out.println("around method After");
+        System.out.println("around method --after--");
         return object;
     }
 }

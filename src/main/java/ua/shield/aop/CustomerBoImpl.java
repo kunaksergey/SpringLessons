@@ -26,4 +26,11 @@ public class CustomerBoImpl implements CustomerBo {
         System.out.println("addCustomerAround is running: "+name);
     }
 
+    @Override
+    @MyAopAnnotation
+    public void testAnnotationAdvice() {
+        System.out.println("Using my Annotation");
+    }
+
+
 }

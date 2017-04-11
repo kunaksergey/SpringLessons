@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 <!--<import resource="datasource-tx-jpa.xml"/>-->
     <aop:aspectj-autoproxy />
-<context:component-scan base-package="ua.shield"/>
+<!--<context:component-scan base-package="ua.shield"/>-->
 
 <!--<aop:aspectj-autoproxy />-->
     <bean id="customerBo" class="ua.shield.aop.CustomerBoImpl"/>
