@@ -39,6 +39,7 @@ public class Main {
         System.out.println();
 //Using @Aspect
         ApplicationContext context=new ClassPathXmlApplicationContext("application-context.xml");
+
         customerBo = context.getBean("customerBo", CustomerBo.class);
         customerBo.addCustomer();
         System.out.println();

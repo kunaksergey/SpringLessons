@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import ua.shield.aop.LoggingAspect;
 import ua.shield.service.UserDetailsServiceImpl;
 
 import javax.annotation.Resource;
@@ -81,6 +82,11 @@ public class WebAppConfig {
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         return resolver;
+    }
+
+    @Bean
+    public LoggingAspect setLoggingAspect(){
+        return new LoggingAspect();
     }
 
 //    @Bean
